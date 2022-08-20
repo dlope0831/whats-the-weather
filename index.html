@@ -9,29 +9,38 @@
 </head>
 <body>
     <main>
-        <header>What's the Weather?</header>
+    
     </main>
-    <div class = "outer-dashboard">
-        <div class= "inner-dashboard"></div>
-            <h1>Plan your trip with ease!</h1>
-        </div>
+    <h1 class="text-uppercase">What's the Weather? <span id="city-search-term"></span></h1>
+    <div id="city-container" class="city">
+
+    </div>
+        <div class="card">
+            <h2 class="card-header text-uppercase">Let's Go To:</h2>
+            <form id="user-form" class="card-body">
+              <label class="form-label" for="city"></label>
+              <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+              <button type="submit" class="btn">Search</button>
+            </form>
+          </div>
     <div class = "card">
-        <h3 class="card-header text-uppercase">Let's Go To:</h3>
+        <h2>What's the weather like in?</h2>
         <div id="city-buttons" class="card-body">
-            <button data-city="austin" class="btn">Austin</button>
-            <button data-city="chicago" class="btn">Chicago</button>
-            <button data-city="new york" class="btn">New York</button>
-            <button data-city="orlando" class="btn">Orlando</button>
-            <button data-city="san francisco" class="btn">San Francisco</button>
-            <button data-city="seattle" class="btn">Seattle</button>
+            <button data-city="austin" value ="austin" class="btn">Austin</button>
+            <button data-city="chicago" value ="chicago" class="btn">Chicago</button>
+            <button data-city="new york" value ="new york" class="btn">New York</button>
+            <button data-city="orlando" value ="orlando" class="btn">Orlando</button>
+            <button data-city="san francisco" value ="san francisco" class="btn">San Francisco</button>
+            <button data-city="seattle" value ="seattle" class="btn">Seattle</button>
         </div>
     </div>
     <div class = "forecast-card">
-        <h3 class="card-header text-uppercase">What's the weather like on...</h3>
-        <div id="display-forecast" class="card-body">
+        <h2 class="card-header text-uppercase">What's the weather like on...</h2>
+        <div id="five-day" class="card-body">
         </div>
     </div>
     <script src="./assets/js/javascript.js"></script>
+    <script src="./assets/js/single.js"></script>
 </body>
 
 </html>
