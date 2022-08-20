@@ -20,6 +20,10 @@ var formSubmitHandler = function(event) {
     } else {
       alert("Please enter a city");
     }
+    localStorage.setItem(cityInputEl, JSON.stringify(city));
+    var typedCity=localStorage.getItem(cityInputEl);
+    console.log('typedCity: ', JSON.parse(typedCity));
+    cityContainerEl.innerHTML = `<h3> ${typedCity} </h3>`
   };
 
   var cityButtonHandler = function(event) {
@@ -31,7 +35,7 @@ var formSubmitHandler = function(event) {
   }
   document.querySelectorAll("#city-buttons .btn").forEach(function(btn) {
     btn.addEventListener("click", cityButtonHandler)
-    console.log(btn.value)
+    // console.log(btn.value)
   });
 
   var getWeatherData = function (searchQuery) {
@@ -54,8 +58,7 @@ var formSubmitHandler = function(event) {
               if (response.ok) {
                 response.json().then(function(weatherData){
                   console.log(weatherData);
-                  localStorage.setItem(weatherData, JSON.stringify(weatherData));
-                  localStorage.getItem(weatherData);
+                  
                 })
               }
             })
@@ -63,6 +66,7 @@ var formSubmitHandler = function(event) {
         }
     })
 }
+// So you would basically just store an array of city names in local storage and then create html elements for the things in that array.
 
     var displayWeather = function(data) {
       cityContainerEl.innerHTML = `<h3> ${data.name} </h3>
