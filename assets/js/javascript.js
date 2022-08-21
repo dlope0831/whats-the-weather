@@ -4,6 +4,10 @@ var cityInputEl = document.querySelector("#city");
 var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 
+var cityHistory = function (){
+  JSON.parse(localStorage.getItem(city));
+};
+
 var formSubmitHandler = function(event) {
     // prevent page from refreshing
     event.preventDefault();
@@ -19,12 +23,11 @@ var formSubmitHandler = function(event) {
       cityInputEl.value = "";
     } else {
       alert("Please enter a city");
+      localStorage.setItem(city, JSON.stringify(city))
+      cityContainerEl.innerHTML = `<h3> ${city} </h3>`;
     }
-    localStorage.setItem(cityInputEl, JSON.stringify(city));
-    var typedCity=localStorage.getItem(cityInputEl);
-    console.log('typedCity: ', JSON.parse(typedCity));
-    cityContainerEl.innerHTML = `<h3> ${typedCity} </h3>`
-  };
+
+};  
 
   var cityButtonHandler = function(event) {
     event.preventDefault();
