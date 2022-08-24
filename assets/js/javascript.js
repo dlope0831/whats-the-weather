@@ -4,9 +4,7 @@ var cityInputEl = document.querySelector("#city");
 var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 
-// var cityHistory = function (){
-//   JSON.parse(localStorage.getItem(city));
-// };
+
 
 var formSubmitHandler = function(event) {
     // prevent page from refreshing
@@ -37,19 +35,16 @@ var formSubmitHandler = function(event) {
 
   }
   
-  // document.querySelectorAll("#city-buttons .btn").forEach(function(btn) {
-  //   btn.addEventListener("click", cityButtonHandler)
-  //   // console.log(btn.value)
-  // });
 
   var getWeatherData = function (searchQuery) {
+    
     var currentApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + searchQuery + "&units=imperial&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
     fetch(currentApiUrl).then(function(response){
       if (response.ok) {
         response.json().then(function(currentData) {
           console.log(currentData);
           displayWeather(currentData);
-          displayUv(currentData);
+          
         })
       }
     })
@@ -62,19 +57,7 @@ var formSubmitHandler = function(event) {
             fetch(oneApiUrl).then(function(response) {
               if (response.ok) {
                 response.json().then(function(weatherData){
-                  console.log(weatherData);
-                  // console.log(weatherData.value)
-                  // cityContainerEl.innerHTML = `<h3> UV: ${weatherData.value} </h3>`
-
-                  // var UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + data[0].lat + "&lon=" + data[0].lon +"&exclude=hourly,daily&appid=791d4e5cacae8c82a3c4abaa9b7629bf";
-                  // fetch(UVQueryURL).then(function(response) {
-                  //   if (response.ok) {
-                  //     response.json().then(function(uvIndex) {
-                  //       console.log(uvIndex);
-                  //     }
-                  // )}
-                  // })
-                
+                  console.log(weatherData.value);          
                 })
               }
             })
@@ -91,24 +74,9 @@ var formSubmitHandler = function(event) {
       <li> Wind: ${data.wind.speed} mph</li>
       <li> Sky: ${data.weather[0].main} </li>`
 
-      var displayUv = function(weatherData) {
-        displayUv = [""];
-        cityContainerEl.innerHTML = `<h3> ${weatherData.value} </h3>`
 
-        // <li> Temp: ${data.main.temp} F</li>
-        // <li> Humidity: ${data.main.humidity}%</li>
-        // <li> Wind: ${data.wind.speed} mph</li>
-        // <li> Sky: ${data.weather[0].main} </li>`
-      
-
-      // var displayUv = function(weatherData) {
-      //     displayUv = "";
-        
        
-      // }
-
-
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      
       // We check to see if there's anything in the local storage for cities
       var citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
       // First, we want to make sure the city hasn't already been added to the list
@@ -120,9 +88,10 @@ var formSubmitHandler = function(event) {
         // Now we need to re-add the buttons
         addSearchHistory();  
       }
+    }
       
       // If the city IS already in the list, we don't add it again      
-    }}
+    
 
     var capitalizeThis = function(word) {
       // This takes a word like "new york" and turns it
@@ -144,9 +113,7 @@ var formSubmitHandler = function(event) {
     var addSearchHistory = function(){
       cityButtonsEl.innerHTML = "";
 
-      // If there are cities stored in local storage, we
-      // set citiesArray to it
-      // Otherwise, we use the example cities you have.
+
       var citiesArray = JSON.parse(localStorage.getItem("cities")) || ["austin", "chicago", "new york", "orlando", "san francisco", "seattle"];
 
       citiesArray.forEach(function(city){
