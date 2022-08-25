@@ -3,6 +3,7 @@ var cityButtonsEl = document.querySelector("#city-buttons");
 var cityInputEl = document.querySelector("#city");
 var cityContainerEl = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
+var fiveDayForecast = document.querySelector("#forecast");
 
 
 
@@ -32,9 +33,59 @@ var formSubmitHandler = function(event) {
 
     // var variousCities = cityButtonsEl.value;
     getWeatherData(event.target.value)
+    fiveDay(event.target.value)
+
 
   }
+var fiveDay = async function(city){
+
+  apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
+  async function getJson(apiUrl) {
+    const response = await fetch(apiUrl);
+    return response.json();
+  }
+  var coordsJson = await getJson(apiUrl);
+  var lat = coordsJson[0].lat
+  var lon = coordsJson[0].lon
+
+
+  fiveApi = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid=791d4e5cacae8c82a3c4abaa9b7629bf";
+  async function getForecast(url) {
+    const response = await fetch(url);
+    return response.json();
+  }
+  var fiveForecast = await getForecast(fiveApi);
+  console.log(fiveForecast);
+  for (var i = 0; i < fiveForecast.list.length; i = i + 8) {
+    console.log(fiveForecast.list[i].main.temp);
+
+    var forecastCard = document.createElement("div");
+
+    var forecastData = fiveForecast.list[i].dt * 1000;
+    var currentDate = new Date(forecastData);
+    var localDate = currentDate.toLocaleDateString();
+
+    var localDateForecast = document.createElement("h3");
+    localDateForecast.textContent = localDate;
+    forecastCard.appendChild(localDateForecast);
+    
+    var forecastTemp = document.createElement("p");
+    forecastTemp.textContent = "Temp: " + fiveForecast.list[i].main.temp;
+
+    var forecastHumid = document.createElement("p");
+    forecastHumid.textContent = "Humidity: " + fiveForecast.list[i].main.humidity;
+
+    var forecastWind = document.createElement("p");
+    forecastWind.textContent = "Wind: " + fiveForecast.list[i].wind.speed;
+
+    forecastCard.appendChild(forecastTemp);
+    forecastCard.appendChild(forecastHumid);
+    forecastCard.appendChild(forecastWind);
+
+    fiveDayForecast.appendChild(forecastCard);
+  }
   
+}
 
   var getWeatherData = function (searchQuery) {
     
@@ -57,22 +108,29 @@ var formSubmitHandler = function(event) {
             fetch(oneApiUrl).then(function(response) {
               if (response.ok) {
                 response.json().then(function(weatherData){
-                  console.log(weatherData.value);          
-                })
+                  displayUv(weatherData)
+       
+                }
+                )
               }
             })
           })   
         }
     })
 }
-  
 
+  var displayUv = function(weatherData) {
+
+    cityContainerEl.innerHTML += `<li> UV: ${weatherData.value} </li>`
+  };
+  // displayUv(weatherData)
     var displayWeather = function(data) {
       cityContainerEl.innerHTML = `<h3> ${data.name} </h3> 
-      <li> Temp: ${data.main.temp} F</li>
+      <li> Temp: ${data.main.temp} °F</li>
       <li> Humidity: ${data.main.humidity}%</li>
       <li> Wind: ${data.wind.speed} mph</li>
       <li> Sky: ${data.weather[0].main} </li>`
+      // <li> UV: ${displayUv} </li>`
 
 
        
