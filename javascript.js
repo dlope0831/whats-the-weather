@@ -38,7 +38,7 @@ var formSubmitHandler = function(event) {
 
   var getWeatherData = function (searchQuery) {
     
-    var currentApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + searchQuery + "&units=imperial&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
+    var currentApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchQuery + "&units=imperial&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
     fetch(currentApiUrl).then(function(response){
       if (response.ok) {
         response.json().then(function(currentData) {
@@ -48,7 +48,7 @@ var formSubmitHandler = function(event) {
         })
       }
     })
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchQuery + "&limit=1&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchQuery + "&limit=1&APPID=791d4e5cacae8c82a3c4abaa9b7629bf";
     fetch(apiUrl).then(function(response){
         if (response.ok) {
          response.json().then(function(data){
